@@ -41,4 +41,6 @@ echo 'Folders gone'
 echo 'Cleaning up persistent disks'
 ./govc datastore.rm -f "/pcf_disk_env$ENV"
 echo 'Persistent disks gone'
+
+rm -f ./govc
 echo 'Done!'
