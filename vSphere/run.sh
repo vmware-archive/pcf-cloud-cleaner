@@ -21,6 +21,7 @@ if [ "" == "$GOVC_DATASTORE" ]; then
     exit -1
 fi
 
+echo "Cleaning up Env [$ENV]"
 echo 'Deleting All VMs...'
 ./govc find -json -type=m "./host/Cluster/Resources/RP$ENV" | xargs -I{} ./govc vm.destroy "{}"
 echo 'VMs gone'
