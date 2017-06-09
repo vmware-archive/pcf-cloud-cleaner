@@ -1,0 +1,9 @@
+export GOVC_URL='https://<vsphere-url>'
+export GOVC_INSECURE=1
+export GOVC_PERSIST_SESSION=1
+export ENV=<two digit env number>
+export GOVC_USERNAME="user"
+export GOVC_PASSWORD='pass'
+export GOVC_DATACENTER='Datacenter'
+export GOVC_CLUSTER='Cluster'
+export GOVC_DATASTORE='Datastore'
