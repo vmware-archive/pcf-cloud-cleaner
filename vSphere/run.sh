@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+source ./vsphere-env.sh
+
 if [ "" == "$ENV" ]; then
     echo 'You must set environment variable ENV to the environment number to clean'
     exit -1

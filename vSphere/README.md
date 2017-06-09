@@ -20,11 +20,9 @@ The purpose for this is cleaning up lab environments.  It's meant to be run by C
 
 ## Usage
 
-To run it manually with Docker:
+Edit the ./env.sh 
 
 ```
-docker run -it -v $(pwd):/the-cleaner -w /the-cleaner ubuntu /bin/bash
-./setup.sh
 export GOVC_URL='https://<vsphere-url>'
 export GOVC_INSECURE=1
 export GOVC_PERSIST_SESSION=1
@@ -34,5 +32,17 @@ export GOVC_PASSWORD='pass'
 export GOVC_DATACENTER='Datacenter'
 export GOVC_CLUSTER='Cluster'
 export GOVC_DATASTORE='Datastore'
+```
+
+Using Docer to execute the clenanup
+
+```
+docker run -it -v $(pwd):/the-cleaner -w /the-cleaner ubuntu /bin/bash
+./setup.sh
+```
+
+Execute the cleanup
+
+```
 ./run.sh
 ```
