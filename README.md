@@ -9,3 +9,6 @@ See the individual IaaS specific folder for more instructions on running the scr
  - [AWS](./AWS/)
  - [GCP](./GCP/)
  - [vSphere](./vSphere/)
+
+## Troubleshooting 
+If you experience an error when running the clean up please review [common issues](./common_issues.md) doc to see if there is a known solution.  If no solution can be found then create a github issue
