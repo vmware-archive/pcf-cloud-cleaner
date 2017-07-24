@@ -38,3 +38,5 @@ export AWS_ACCESS_KEY=<your-key>
 export AWS_SECRET_KEY=<your-secret>
 ./run.sh
 ```
+
+**NOTE**:  The AWS Access & Secret key should be your personal account, *not* the keys setup for your PCF user.  In our lab environments, your personal account will have admin access while the PCF account will be a subset.  If you use the PCF account, you'll end up with permission issues as the script tries to clean up resources.
