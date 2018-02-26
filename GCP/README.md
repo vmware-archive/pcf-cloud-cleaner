@@ -46,5 +46,6 @@ docker run -it -v $(pwd):/the-cleaner -w /the-cleaner ubuntu /bin/bash
 export GCP_ACCOUNT=<your-account-email>
 export GCP_SERVICE_FILE=<relative-path-to-service-account-json-file>
 export GCP_PROJECT=<your-project-name>
+export CLOUDSDK_CORE_PROJECT==<your-project-name>
 ./run.sh
 ```

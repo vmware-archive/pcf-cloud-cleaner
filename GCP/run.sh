@@ -65,5 +65,8 @@ gcloud compute http-health-checks list --format=json | jq -r '.[].name' | xargs 
 gcloud compute https-health-checks list --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute https-health-checks delete -q
 echo "Health Checks are gone"
 
-# TODO: delete google SQL databases
+echo "Cleaning up Google SQL database..."
+gcloud sql instances list --format=json | jq -r '.[].name' | xargs -n 1 -r gcloud sql instances delete
+echo "Google SQL databases gone."
+
 # TODO: delete google storage buckets (gsutil wouldn't work with service credentials)
