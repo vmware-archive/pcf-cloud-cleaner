@@ -12,8 +12,8 @@ echo "Deleting Instances..."
 ZONES=$(gcloud compute zones list --format=json | jq -r '.[].name')
 for ZONE in $ZONES; do
     echo "Cleaning Zone [$ZONE]"
-    gcloud compute instances list --zones=$ZONE --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute instances delete -q --zone=$ZONE
-    gcloud compute disks list --zones=$ZONE --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute disks delete -q --zone=$ZONE
+    gcloud compute instances list --filter="zone:($ZONE)" --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute instances delete -q --zone=$ZONE
+    gcloud compute disks list --filter="zone:($ZONE)" --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute disks delete -q --zone=$ZONE
 done
 echo "Instances gone"
 
@@ -27,7 +27,7 @@ REGIONS=$(gcloud compute regions list --format=json | jq -r '.[].name')
 
 gcloud compute forwarding-rules list --global --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute forwarding-rules delete -q --global
 for REGION in $REGIONS; do
-    gcloud compute forwarding-rules list --regions=$REGION --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute forwarding-rules delete -q --region=$REGION
+    gcloud compute forwarding-rules list --filter="region:($REGION)" --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute forwarding-rules delete -q --region=$REGION
 done
 
 gcloud compute target-http-proxies list --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute target-http-proxies delete -q
@@ -37,11 +37,11 @@ gcloud compute url-maps list --format=json | jq -r '.[].name' | xargs -n 5 -r gc
 
 gcloud compute backend-services list --global --format=json | jq -r '.[].name' | xargs -n 4 -r gcloud compute backend-services delete -q --global
 for REGION in $REGIONS; do
-    gcloud compute backend-services list --regions=$REGION --format=json | jq -r '.[].name' | xargs -n 4 -r gcloud compute backend-services delete -q --region=$REGION
+    gcloud compute backend-services list --filter="region:($REGION)" --format=json | jq -r '.[].name' | xargs -n 4 -r gcloud compute backend-services delete -q --region=$REGION
 done
 
 for ZONE in $ZONES; do
-    gcloud compute instance-groups list --zones=$ZONE --format=json | jq -r '.[].name' | xargs -n 2 -r gcloud compute instance-groups unmanaged delete -q --zone=$ZONE
+    gcloud compute instance-groups list --filter="zone:($ZONE)" --format=json | jq -r '.[].name' | xargs -n 2 -r gcloud compute instance-groups unmanaged delete -q --zone=$ZONE
 done
 
 gcloud compute firewall-rules list --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute firewall-rules delete -q
@@ -50,11 +50,11 @@ gcloud compute networks list --format=json | jq -r '.[] | select(.x_gcloud_mode 
 
 gcloud compute addresses list --global --format=json | jq -r '.[].name' | xargs -n 4 -r gcloud compute addresses delete -q --global
 for REGION in $REGIONS; do
-    gcloud compute addresses list --regions=$REGION --format=json | jq -r '.[].name' | xargs -n 4 -r gcloud compute addresses delete -q --region=$REGION
+    gcloud compute addresses list --filter="region:($REGION)" --format=json | jq -r '.[].name' | xargs -n 4 -r gcloud compute addresses delete -q --region=$REGION
 done
 
 for REGION in $REGIONS; do
-    gcloud compute target-pools list --regions=$REGION --format=json | jq -r '.[].name' | xargs -n 4 -r gcloud compute target-pools delete -q --region=$REGION
+    gcloud compute target-pools list --filter="region:($REGION)" --format=json | jq -r '.[].name' | xargs -n 4 -r gcloud compute target-pools delete -q --region=$REGION
 done
 
 echo "Networking is gone"
