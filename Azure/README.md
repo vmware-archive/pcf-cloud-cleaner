@@ -29,7 +29,7 @@ To run it manually with Docker:
 Note: You can get the `AZURE_TENANT` from command "azure account list"
 
 ```
-docker run -it -v $(pwd):/the-cleaner -w /the-cleaner ubuntu:14.04 /bin/bash
+docker run -it -v $(pwd):/the-cleaner -w /the-cleaner ubuntu:bionic /bin/bash
 ./setup.sh
 export AZURE_TENANT=<your-account-email>
 ./run.sh
