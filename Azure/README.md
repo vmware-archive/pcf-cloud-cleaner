@@ -26,11 +26,11 @@ The purpose for this is cleaning up lab environments.  It's meant to be run by C
 
 To run it manually with Docker:
 
+Note: You can get the `AZURE_TENANT` from command "azure account list"
+
 ```
-docker run -it -v $(pwd):/the-cleaner -w /the-cleaner ubuntu /bin/bash
+docker run -it -v $(pwd):/the-cleaner -w /the-cleaner ubuntu:14.04 /bin/bash
 ./setup.sh
-export AZURE_USER=<your-service-user>
-export AZURE_PASSWORD=<your-service-pass>
 export AZURE_TENANT=<your-account-email>
 ./run.sh
 ```

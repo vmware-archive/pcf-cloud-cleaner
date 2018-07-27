@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-az login --service-principal -u "$AZURE_USER" --password "$AZURE_PASSWORD" --tenant "$AZURE_TENANT"
+az login --tenant "$AZURE_TENANT"
 
 VMS=$(az vm list | jq -r '.[].id')
 echo "Cleaning up VMs..."
