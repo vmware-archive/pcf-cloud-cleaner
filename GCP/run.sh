@@ -45,8 +45,14 @@ for ZONE in $ZONES; do
 done
 
 gcloud compute firewall-rules list --format=json | jq -r '.[].name' | xargs -n 5 -r gcloud compute firewall-rules delete -q
+# delete non-default routes
+gcloud compute routes list --format=json | jq -r ' .[] | select( .name | startswith("default-") | not) | .name' | xargs -n 5 -r gcloud compute routes delete -q
+# delete auto subnet networks first, because we can't delete those subnets
+gcloud compute networks list --format=json | jq -r '.[] | select(.x_gcloud_subnet_mode == "AUTO") | .name' | xargs -n 5 -r gcloud compute networks delete -q
+# delete subnets for custom networks
 gcloud compute networks subnets list --format=json | ./parse-subnets.py | xargs -I{} -n 1 -0 -r bash -c "gcloud compute networks subnets delete -q {}"
-gcloud compute networks list --format=json | jq -r '.[] | select(.x_gcloud_mode == "custom") | .name' | xargs -n 5 -r gcloud compute networks delete -q
+# delete custom networks
+gcloud compute networks list --format=json | jq -r '.[] | select(.x_gcloud_subnet_mode == "CUSTOM") | .name' | xargs -n 5 -r gcloud compute networks delete -q
 
 gcloud compute addresses list --global --format=json | jq -r '.[].name' | xargs -n 4 -r gcloud compute addresses delete -q --global
 for REGION in $REGIONS; do
