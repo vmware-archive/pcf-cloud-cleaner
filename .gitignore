@@ -1,3 +1,4 @@
 env.sh
 readonly.txt
 *-service-account.json
+AWS/env
