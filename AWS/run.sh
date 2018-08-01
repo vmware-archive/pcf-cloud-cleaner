@@ -47,7 +47,9 @@ for REGION in $REGIONS; do
     echo '    RDS instances are gone'
 
     echo '    Deleting S3 buckets...'
-    aws s3api list-buckets | jq -r ".Buckets[].Name" | xargs -r -I{} -n 1 aws s3 rb --force "s3://{}"
+    BUCKETS=$(aws s3api list-buckets)
+    echo "$BUCKETS" | jq -r '.Buckets[].Name | select(. | startswith("cf-"))' | xargs -r -I{} -n 1 aws s3 rb --force "s3://{}"
+    echo "$BUCKETS" | jq -r '.Buckets[].Name | select(. | startswith("pcf-"))' | xargs -r -I{} -n 1 aws s3 rb --force "s3://{}"
     echo '    S3 buckets gone'
 
     # these don't necessarily have costs associated
