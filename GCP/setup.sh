@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get update && apt-get -y install curl jq
+apt-get update && apt-get -y install curl jq gnupg
 
 # Add the Cloud SDK distribution URI as a package source
 echo "deb http://packages.cloud.google.com/apt cloud-sdk-xenial main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
