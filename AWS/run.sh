@@ -8,7 +8,9 @@ aws configure set aws_secret_access_key $AWS_SECRET_KEY
 aws configure set region us-east-1
 aws configure set output json
 
-REGIONS=$(aws ec2 describe-regions | jq -r '.Regions[].RegionName')
+if [ -z "$REGIONS" ]; then
+    REGIONS=$(aws ec2 describe-regions | jq -r '.Regions[].RegionName')
+fi
 for REGION in $REGIONS; do
     echo "Processing Region [$REGION]"
     aws configure set region "$REGION"
