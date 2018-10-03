@@ -46,3 +46,12 @@ Execute the cleanup
 ```
 ./run.sh
 ```
+
+## Concourse Usage
+
+The `create-docker.sh` script & `Dockerfile` can be used to create a Docker image for use in a Concourse pipeline. If you're manually running these scripts, you can ignore these files.
+
+If you'd like to integrate this with a Concourse pipeline, see the following instructions:
+
+ <TODO: add example>
+ 
