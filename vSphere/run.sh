@@ -25,24 +25,23 @@ fi
 
 echo "Cleaning up Env [$ENV]"
 echo 'Deleting All VMs...'
-./govc find -json -type=m "./host/Cluster/Resources/RP$ENV" | xargs -I{} ./govc vm.destroy "{}"
+govc find -json -type=m "./host/Cluster/Resources/RP$ENV" | xargs -I{} govc vm.destroy "{}"
 echo 'VMs gone'
 
 echo 'Cleaning up folders...'
-./govc ls "/${GOVC_DATACENTER}/vm/env$ENV/*" | xargs -I{} ./govc vm.destroy "{}"
-./govc ls "/${GOVC_DATACENTER}/vm/pcf_templates_env$ENV/*" | xargs -I{} ./govc vm.destroy "{}"
-./govc ls "/${GOVC_DATACENTER}/vm/pcf_vms_env$ENV/*" | xargs -I{} ./govc vm.destroy "{}"
+govc ls "/${GOVC_DATACENTER}/vm/env$ENV/*" | xargs -I{} govc vm.destroy "{}"
+govc ls "/${GOVC_DATACENTER}/vm/pcf_templates_env$ENV/*" | xargs -I{} govc vm.destroy "{}"
+govc ls "/${GOVC_DATACENTER}/vm/pcf_vms_env$ENV/*" | xargs -I{} govc vm.destroy "{}"
 echo 'Folders clean'
 
 echo 'Deleting folders'
-./govc object.destroy "/${GOVC_DATACENTER}/vm/env$ENV" || true
-./govc object.destroy "/${GOVC_DATACENTER}/vm/pcf_vms_env$ENV" || true
-./govc object.destroy "/${GOVC_DATACENTER}/vm/pcf_templates_env$ENV" || true
+govc object.destroy "/${GOVC_DATACENTER}/vm/env$ENV" || true
+govc object.destroy "/${GOVC_DATACENTER}/vm/pcf_vms_env$ENV" || true
+govc object.destroy "/${GOVC_DATACENTER}/vm/pcf_templates_env$ENV" || true
 echo 'Folders gone'
 
 echo 'Cleaning up persistent disks'
-./govc datastore.rm -f "/pcf_disk_env$ENV"
+govc datastore.rm -f "/pcf_disk_env$ENV"
 echo 'Persistent disks gone'
 
-rm -f ./govc
 echo 'Done!'
