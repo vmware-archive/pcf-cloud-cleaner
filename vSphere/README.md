@@ -37,7 +37,7 @@ export GOVC_DATASTORE='Datastore'
 Using Docer to execute the clenanup
 
 ```
-docker run -it -v $(pwd):/the-cleaner -w /the-cleaner ubuntu /bin/bash
+docker run -it -v $(pwd):/the-cleaner -w /the-cleaner ubuntu:bionic /bin/bash
 ./setup.sh
 ```
 
