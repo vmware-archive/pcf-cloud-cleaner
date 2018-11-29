@@ -53,5 +53,51 @@ The `create-docker.sh` script & `Dockerfile` can be used to create a Docker imag
 
 If you'd like to integrate this with a Concourse pipeline, see the following instructions:
 
- <TODO: add example>
+```
+resources:
+- name: pcf-cloud-cleaner-image
+  type: s3
+  source:
+    endpoint: ((minio_endpoint))
+    access_key_id: ((minio_access_key_id))
+    secret_access_key: ((minio_secret_access_key))
+    bucket: ((s3_image_bucket))
+    regexp: pcf-cloud-cleaner-image-(.*).tgz
+    disable_ssl: true
+
+- name: support-lab-tasks
+  type: s3
+  source:
+    endpoint: ((minio_endpoint))
+    access_key_id: ((minio_access_key_id))
+    secret_access_key: ((minio_secret_access_key))
+    bucket: ((s3_image_bucket))
+    regexp: support-lab-tasks-(.*).zip
+    disable_ssl: true
+
+
+jobs:
+- name: wipe-and-repave
+  plan:
+  - aggregate:
+    - get: pcf-cloud-cleaner-image
+      params:
+        unpack: true 
+    - get: config
+      params:
+        unpack: true
+    - get: support-lab-tasks
+      params:
+        unpack: true
+  - task: delete-environment
+    image: pcf-cloud-cleaner-image
+    file: support-lab-tasks/run-vsphere-cleaner.yml
+    params:
+      VARS_FILE: config/opsman.yml
+      LAB_NUMBER: ((vsphere_lab_number))
+    ensure:
+      put: state
+      params:
+        file: generated-state/state.yml
+```
  
