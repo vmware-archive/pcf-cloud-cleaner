@@ -25,7 +25,7 @@ fi
 
 echo "Cleaning up Env [$ENV]"
 echo 'Deleting All VMs...'
-govc find -json -type=m "./host/Cluster/Resources/RP$ENV" | xargs -I{} govc vm.destroy "{}"
+govc find -type=m "./host/Cluster/Resources/RP$ENV" | xargs -I{} govc vm.destroy "{}"
 echo 'VMs gone'
 
 echo 'Cleaning up folders...'
