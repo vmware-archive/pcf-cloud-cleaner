@@ -7,6 +7,7 @@ Be **very** careful when running these as they are by their nature destructive!!
 See the individual IaaS specific folder for more instructions on running the script for your environment.
 
  - [AWS](./AWS/)
+ - [Azure](./Azure)
  - [GCP](./GCP/)
  - [vSphere](./vSphere/)
 
